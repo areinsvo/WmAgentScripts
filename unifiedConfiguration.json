@@ -1,0 +1,121 @@
+{
+ "pattern_fraction_pass": {
+   "value" : {},
+   "description" : "overide of the completion fraction of dataset with keyword"
+ },
+ "tiers_with_no_custodial": {
+   "value" : ["DQM","DQMIO","RECO"],
+   "description": "The data tiers that do not go to tape. Can be overidden by custodial overide at campaign level"
+ },
+ "use_parent_custodial": {
+   "value" : false,
+   "description": "Use the location of the parent dataset for custodial copy"
+ },
+ "tiers_with_no_check": {
+   "value" : ["DQM","DQMIO"],
+   "description": "The data tiers that do not pass closeout checks. Can be overidden by custodial overide at campaign level"
+ },
+ "tiers_no_DDM": {
+   "value" : ["GEN-SIM","LHE","GEN","DQM","DQMIO","GEN-SIM-DIGI-RAW","RAWAODSIM"],
+   "description": "The data tiers that do not go to AnaOps"
+ },
+ "tiers_to_DDM": {
+   "value" : ["AODSIM","MINIAODSIM","GEN-SIM-RAW","GEN-SIM-RECO","GEN-SIM-RECODEBUG","AOD","RECO","MINIAOD","ALCARECO","USER","RAW-RECO"],
+   "description": "The data tiers that go to AnaOps"
+ },
+ "tiers_keep_on_disk": {
+   "value" : ["LHE"],
+   "description": "the data tier not unlocked until used again"
+ },
+ "check_fullcopy_to_announce": {
+  "value" : false,
+  "description": "Whether to check for a full copy being present prior to announcing a dataset"
+ },
+ "stagor_sends_back": {
+   "value" : true,
+   "description": "Whether the stagor module can send workflow back to considered"
+ },
+  "max_handled_workflows": {
+   "value" : 4000,
+   "description": "The total number of workflows that we allow to handle at a time (transfer, running, assistance)"
+  },
+  "max_staging_workflows": {
+   "value" : 400,
+   "description": "The total number of workflows that we allow to stage at a time"
+  }, 
+  "max_staging_workflows_per_site": {
+   "value" : 400,
+   "description": "The total number of workflows that we allow to stage at a time per site"
+  },
+  "max_transfer_in_GB": {
+   "value" : 800000,
+   "description": "The total size of the input datasets that can be transfered at a given time"
+  },
+  "transfer_timeout": {
+   "value" : 7,
+   "description": "Time in days after which to consider a transfer to be stuck"
+  },
+  "transfer_lowrate": {
+   "value" : 0.004,
+   "description": "Rate in GB/s under which to consider a transfer to be stuck, after transfer_timeout days"
+  },
+  "less_copies_than_requested": {
+   "value" : 1,
+   "description": "Decrease the number of requested copies by that number, floored to 1"
+  },
+  "chopping_threshold_in_GB": {
+  "value" : 4000,
+  "description": "The threshold before choping an input dataset in chunk of that size for spreading to sites"
+  },
+  "error_codes_to_recover": {
+  "value" : { "50664" : [ { "legend" : "time-out",
+  	           "solution" : "split-2" ,
+                   "details" : null,
+                   "rate" : 20 
+                  } ],
+        "50660" : [ { "legend" : "memory excess",
+                  "solution" : "mem-1000" ,
+                  "details" : null,
+                  "rate" : 20
+                  } ],
+        "61104" : [ { "legend" : "failed submit",
+                  "solution" : "recover" ,
+                  "details" : null,
+                  "rate" : 20 
+                  } ],
+        "8028" : [ { "legend" : "read error",
+                 "solution" : "recover" ,
+                 "details" : null,
+                 "rate" : 20 
+                 } ],
+        "8021" : [ { "legend" : "cmssw failure",
+                 "solution" : "recover" , 
+                 "details" : "FileReadError",
+                 "rate" : 20
+                 } ],
+        "8001" : [ { "legend" : "lhe failure",
+                 "solution" : "split-4" , 
+                 "details" : "No lhe event found in ExternalLHEProducer::produce()",
+                 "rate" : 20
+                 } ]
+        },
+  "description" : "The error code, threshold and rules for auto-recovery"
+  },
+  "error_codes_to_block" : {
+  "value" : 
+      {
+        "99109" : [{ "legend" : "stage-out",
+                   "solution" : "recover",
+                   "details" : null,
+                   "rate" : 20
+                   }]
+    },
+  "description" : "The error code, threshold and rules to prevent auto-recovery"
+  },
+  "error_codes_to_notify" : {
+  "value" : {
+   "8021" : { "message" : "Please take a look and come back to Ops." }
+  },
+  "description" : "The error code, threshold and rules to notify the user of an error in production"
+  }
+}
